@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:802922962628:certificate/50d711a1-687b-4f8a-8d8e-8523f7322edf
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+  creationTimestamp: 2019-01-31T18:37:33Z
+  labels:
+    run: plasmachain
+  name: plasmachain
+  namespace: watchtower
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: http
+    nodePort: 30834
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  - name: https
+    nodePort: 30833
+    port: 443
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    run: plasmachain
+  sessionAffinity: None
+  type: LoadBalancer
