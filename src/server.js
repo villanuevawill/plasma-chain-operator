@@ -57,6 +57,10 @@ function resolveMessage (m) {
   delete messageQueue[m.ipcID]
 }
 
+app.get('/', function (req, res) {
+  res.send('success')
+})
+
 // Handle incoming transactions
 app.post('/api', function (req, res) {
   log('INCOMING RPC request with method:', req.body.method, 'and rpcID:', req.body.id)
